@@ -1,0 +1,290 @@
+[
+    {
+        "grade": "7",
+        "subject_name": "Pendidikan Agama Islam1",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 1,
+        "__backendId": "def-7-1",
+        "enabled": true
+    },
+    {
+        "grade": "7",
+        "subject_name": "Pendidikan Agama Kristen1",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 2,
+        "__backendId": "def-7-2",
+        "enabled": true
+    },
+    {
+        "grade": "7",
+        "subject_name": "Bahasa Indonesia1",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 3,
+        "__backendId": "def-7-3",
+        "enabled": true
+    },
+    {
+        "grade": "7",
+        "subject_name": "PPKn1",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 4,
+        "__backendId": "def-7-4",
+        "enabled": true
+    },
+    {
+        "grade": "7",
+        "subject_name": "IPS1",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 5,
+        "__backendId": "def-7-5",
+        "enabled": true
+    },
+    {
+        "grade": "7",
+        "subject_name": "IPA1",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 6,
+        "__backendId": "def-7-6",
+        "enabled": true
+    },
+    {
+        "grade": "7",
+        "subject_name": "Bahasa Inggris1",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 7,
+        "__backendId": "def-7-7",
+        "enabled": true
+    },
+    {
+        "grade": "7",
+        "subject_name": "Seni Budaya1",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 8,
+        "__backendId": "def-7-8",
+        "enabled": true
+    },
+    {
+        "grade": "7",
+        "subject_name": "PJOK1",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 9,
+        "__backendId": "def-7-9",
+        "enabled": true
+    },
+    {
+        "grade": "7",
+        "subject_name": "Mulok1",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 10,
+        "__backendId": "def-7-10",
+        "enabled": true
+    },
+    {
+        "grade": "7",
+        "subject_name": "Matematika1",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 11,
+        "__backendId": "def-7-11",
+        "enabled": true
+    },
+    {
+        "grade": "7",
+        "subject_name": "Informatika1",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 12,
+        "__backendId": "def-7-12",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "Pendidikan Agama Islam2",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 1,
+        "__backendId": "def-8-1",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "Pendidikan Agama Kristen2",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 2,
+        "__backendId": "def-8-2",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "Bahasa Indonesia2",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 3,
+        "__backendId": "def-8-3",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "PPKn2",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 4,
+        "__backendId": "def-8-4",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "IPS2",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 5,
+        "__backendId": "def-8-5",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "IPA2",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 6,
+        "__backendId": "def-8-6",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "Bahasa Inggris2",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 7,
+        "__backendId": "def-8-7",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "Seni Budaya2",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 8,
+        "__backendId": "def-8-8",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "PJOK2",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 9,
+        "__backendId": "def-8-9",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "Mulok2",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 10,
+        "__backendId": "def-8-10",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "Matematika2",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 11,
+        "__backendId": "def-8-11",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "Informatika2",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 12,
+        "__backendId": "def-8-12",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "Pendidikan Agama Islam3",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 1,
+        "__backendId": "def-9-1",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "Pendidikan Agama Kristen3",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 2,
+        "__backendId": "def-9-2",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "Bahasa Indonesia3",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 3,
+        "__backendId": "def-9-3",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "PPKn3",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 4,
+        "__backendId": "def-9-4",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "IPS3",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 5,
+        "__backendId": "def-9-5",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "IPA3",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 6,
+        "__backendId": "def-9-6",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "Bahasa Inggris3",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 7,
+        "__backendId": "def-9-7",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "Seni Budaya3",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 8,
+        "__backendId": "def-9-8",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "PJOK3",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 9,
+        "__backendId": "def-9-9",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "Mulok3",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 10,
+        "__backendId": "def-9-10",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "Matematika3",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 11,
+        "__backendId": "def-9-11",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "Informatika3",
+        "form_link": "https:\/\/docs.google.com\/forms\/d\/e\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\/viewform?usp=header",
+        "order": 12,
+        "__backendId": "def-9-12",
+        "enabled": true
+    }
+]
