@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Portal Mata Pelajaran - Versi HTML Tunggal</title>
+<style>
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;margin:0;background:#f7fafc;color:#0f172a}
+  header{background:#0ea5a4;color:white;padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between}
+  .container{max-width:900px;margin:1.5rem auto;padding:1rem;background:white;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.08)}
+  h1{margin:0;font-size:1.25rem}
+  .grades{display:flex;gap:.5rem;margin:1rem 0;flex-wrap:wrap}
+  .grade-btn{padding:.5rem .75rem;border-radius:8px;border:1px solid #e6eef0;background:#ffffff;cursor:pointer}
+  .grade-btn.active{background:#0ea5a4;color:white;border-color:#0ea5a4}
+  ul.subjects{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.5rem}
+  li.card{background:#f8fafc;padding:.6rem;border-radius:8px;border:1px solid #e6eef0;display:flex;justify-content:space-between;align-items:center}
+  a.link{display:block;text-decoration:none;color:#0f172a;font-weight:600}
+  .small{font-size:.85rem;color:#475569}
+  .admin-row{display:flex;gap:.5rem;align-items:center}
+  .btn{padding:.45rem .6rem;border-radius:8px;border:0;cursor:pointer}
+  .btn.primary{background:#0ea5a4;color:white}
+  .btn.ghost{background:transparent;border:1px solid #cbd5e1}
+  .toggle{display:inline-flex;align-items:center;gap:.5rem}
+  .switch{width:42px;height:24px;border-radius:999px;background:#e2e8f0;position:relative;cursor:pointer}
+  .knob{position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:999px;background:white;box-shadow:0 1px 2px rgba(2,6,23,0.2);transition:all .18s}
+  .switch.on{background:#34d399}
+  .switch.on .knob{left:20px}
+  footer{font-size:.85rem;color:#64748b;padding:1rem;text-align:center}
+  .notice{background:#fffbeb;border-left:4px solid #f59e0b;padding:.6rem;border-radius:6px;margin:.6rem 0}
+  .row{display:flex;gap:.5rem;align-items:center}
+  @media (max-width:520px){.grades{justify-content:center}}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>Portal Mata Pelajaran (HTML tunggal)</h1><div class="small">Gabungan: subjects + admin + tampilan</div></div>
+  <div class="row">
+    <div id="adminStatus" class="small">Tidak masuk</div>
+    <button class="btn ghost" id="openAdmin">Masuk Admin</button>
+  </div>
+</header>
+
+<main class="container">
+  <div class="notice">
+    File ini adalah versi HTML statis yang menggabungkan data mata pelajaran dan panel admin sederhana.
+    Perubahan disimpan di <strong>localStorage</strong> browser (persisten di perangkat ini). Gunakan tombol "Ekspor JSON" untuk menyimpan perubahan ke file.
+  </div>
+
+  <div>
+    <div class="grades" id="grades"></div>
+    <ul class="subjects" id="subjects"></ul>
+  </div>
+
+  <div style="margin-top:1rem;display:flex;justify-content:space-between;align-items:center">
+    <div>
+      <button class="btn primary" id="exportBtn">Ekspor JSON</button>
+      <button class="btn ghost" id="resetBtn">Reset ke data awal</button>
+    </div>
+    <div class="small">Versi: satu file HTML — diedit lokal.</div>
+  </div>
+</main>
+
+<footer>
+  Dibuat otomatis — ubah data atau kredensial langsung pada file HTML ini jika ingin mengganti kata sandi admin.
+</footer>
+
+<!-- Admin modal (simple) -->
+<div id="adminModal" style="display:none;position:fixed;inset:0;background:rgba(2,6,23,0.5);align-items:center;justify-content:center;padding:1rem">
+  <div style="background:white;padding:1rem;border-radius:12px;max-width:420px;width:100%">
+    <h3 style="margin-top:0">Panel Admin</h3>
+    <div style="margin-bottom:.5rem"><label class="small">Username</label><input id="adminUser" style="width:100%;padding:.5rem;border-radius:8px;border:1px solid #e6eef0" /></div>
+    <div style="margin-bottom:.5rem"><label class="small">Password</label><input id="adminPass" type="password" style="width:100%;padding:.5rem;border-radius:8px;border:1px solid #e6eef0" /></div>
+    <div style="display:flex;gap:.5rem;justify-content:flex-end">
+      <button class="btn ghost" id="closeAdmin">Batal</button>
+      <button class="btn primary" id="doLogin">Masuk</button>
+    </div>
+    <div class="small" style="margin-top:.75rem;color:#475569">
+      Default username: <strong id="defaultUser">admin</strong>. Default password: <strong id="defaultPass">admin</strong>.
+      (Untuk keamanan sesuaikan kata sandi di file HTML jika perlu. Ini hanya demo client-side.)
+    </div>
+  </div>
+</div>
+
+<script>
+// ====== Data (dimasukkan dari file subjects_data.json yang di-upload) ======
+const initialData = 
+[
+    {
+        "grade": "7",
+        "subject_name": "Pendidikan Agama Islam1",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 1,
+        "__backendId": "def-7-1",
+        "enabled": true
+    },
+    {
+        "grade": "7",
+        "subject_name": "Pendidikan Agama Kristen1",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 2,
+        "__backendId": "def-7-2",
+        "enabled": true
+    },
+    {
+        "grade": "7",
+        "subject_name": "Bahasa Indonesia1",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 3,
+        "__backendId": "def-7-3",
+        "enabled": true
+    },
+    {
+        "grade": "7",
+        "subject_name": "PPKn1",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 4,
+        "__backendId": "def-7-4",
+        "enabled": true
+    },
+    {
+        "grade": "7",
+        "subject_name": "IPS1",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 5,
+        "__backendId": "def-7-5",
+        "enabled": true
+    },
+    {
+        "grade": "7",
+        "subject_name": "IPA1",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 6,
+        "__backendId": "def-7-6",
+        "enabled": true
+    },
+    {
+        "grade": "7",
+        "subject_name": "Bahasa Inggris1",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 7,
+        "__backendId": "def-7-7",
+        "enabled": true
+    },
+    {
+        "grade": "7",
+        "subject_name": "Seni Budaya1",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 8,
+        "__backendId": "def-7-8",
+        "enabled": true
+    },
+    {
+        "grade": "7",
+        "subject_name": "PJOK1",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 9,
+        "__backendId": "def-7-9",
+        "enabled": true
+    },
+    {
+        "grade": "7",
+        "subject_name": "Mulok1",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 10,
+        "__backendId": "def-7-10",
+        "enabled": true
+    },
+    {
+        "grade": "7",
+        "subject_name": "Matematika1",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 11,
+        "__backendId": "def-7-11",
+        "enabled": true
+    },
+    {
+        "grade": "7",
+        "subject_name": "Informatika1",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 12,
+        "__backendId": "def-7-12",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "Pendidikan Agama Islam2",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 1,
+        "__backendId": "def-8-1",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "Pendidikan Agama Kristen2",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 2,
+        "__backendId": "def-8-2",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "Bahasa Indonesia2",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 3,
+        "__backendId": "def-8-3",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "PPKn2",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 4,
+        "__backendId": "def-8-4",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "IPS2",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 5,
+        "__backendId": "def-8-5",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "IPA2",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 6,
+        "__backendId": "def-8-6",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "Bahasa Inggris2",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 7,
+        "__backendId": "def-8-7",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "Seni Budaya2",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 8,
+        "__backendId": "def-8-8",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "PJOK2",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 9,
+        "__backendId": "def-8-9",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "Mulok2",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 10,
+        "__backendId": "def-8-10",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "Matematika2",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 11,
+        "__backendId": "def-8-11",
+        "enabled": true
+    },
+    {
+        "grade": "8",
+        "subject_name": "Informatika2",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 12,
+        "__backendId": "def-8-12",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "Pendidikan Agama Islam3",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 1,
+        "__backendId": "def-9-1",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "Pendidikan Agama Kristen3",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 2,
+        "__backendId": "def-9-2",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "Bahasa Indonesia3",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 3,
+        "__backendId": "def-9-3",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "PPKn3",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 4,
+        "__backendId": "def-9-4",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "IPS3",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 5,
+        "__backendId": "def-9-5",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "IPA3",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 6,
+        "__backendId": "def-9-6",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "Bahasa Inggris3",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 7,
+        "__backendId": "def-9-7",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "Seni Budaya3",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 8,
+        "__backendId": "def-9-8",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "PJOK3",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 9,
+        "__backendId": "def-9-9",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "Mulok3",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 10,
+        "__backendId": "def-9-10",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "Matematika3",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 11,
+        "__backendId": "def-9-11",
+        "enabled": true
+    },
+    {
+        "grade": "9",
+        "subject_name": "Informatika3",
+        "form_link": "https:\\/\\/docs.google.com\\/forms\\/d\\/e\\/1FAIpQLScgctRsNzZm6ENmAgD0grs2rdO3utCPcSadvVqH9tFtNIUYkw\\/viewform?usp=header",
+        "order": 12,
+        "__backendId": "def-9-12",
+        "enabled": true
+    }
+]
+;
+
+// Admin credential (username from admin_credentials.json, password here is set to 'admin' for demo)
+const adminCredential = { username: "admin", password: "admin" };
+
+// ===== Helpers =====
+function groupByGrade(arr){ const g={}; arr.forEach(it=>{ if(!g[it.grade]) g[it.grade]=[]; g[it.grade].push(it); }); return g; }
+
+// Load working data from localStorage or initial
+const STORAGE_KEY = 'portal_subjects_v1';
+let subjects = null;
+if(localStorage.getItem(STORAGE_KEY)){
+  try{ subjects = JSON.parse(localStorage.getItem(STORAGE_KEY)); }
+  catch(e){ subjects = JSON.parse(JSON.stringify(initialData)); }
+} else {
+  subjects = JSON.parse(JSON.stringify(initialData));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(subjects));
+}
+
+// UI rendering
+const gradesContainer = document.getElementById('grades');
+const subjectsList = document.getElementById('subjects');
+let currentGrade = '7';
+
+function renderGrades(){
+  gradesContainer.innerHTML='';
+  const grades = Array.from(new Set(subjects.map(s=>s.grade))).sort();
+  grades.forEach(g=>{
+    const btn = document.createElement('button');
+    btn.className = 'grade-btn' + (g===currentGrade ? ' active' : '');
+    btn.textContent = 'Kelas ' + g;
+    btn.onclick = ()=>{ currentGrade = g; renderGrades(); renderSubjects(); };
+    gradesContainer.appendChild(btn);
+  });
+}
+
+function renderSubjects(){
+  subjectsList.innerHTML='';
+  const list = subjects.filter(s => s.grade===currentGrade).sort((a,b)=>a.order-b.order);
+  list.forEach(item => {
+    const li = document.createElement('li');
+    li.className = 'card';
+    const left = document.createElement('div');
+    left.style.maxWidth='70%';
+    const a = document.createElement('a');
+    a.className='link';
+    a.href = item.form_link || '#';
+    a.target='_blank';
+    a.textContent = item.subject_name;
+    const small = document.createElement('div'); small.className='small'; small.textContent = 'Order: ' + item.order;
+    left.appendChild(a); left.appendChild(small);
+    const right = document.createElement('div');
+    right.className='admin-row';
+    const toggleWrap = document.createElement('div');
+    toggleWrap.className='toggle';
+    const switchEl = document.createElement('div');
+    switchEl.className='switch ' + (item.enabled ? 'on' : '');
+    const knob = document.createElement('div'); knob.className='knob';
+    switchEl.appendChild(knob);
+    toggleWrap.appendChild(switchEl);
+    // When admin logged in, toggle is clickable to enable/disable; otherwise redirect to form when clicking card.
+    switchEl.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      if(!isAdmin){ alert('Masuk sebagai admin untuk mengubah status'); return; }
+      item.enabled = !item.enabled;
+      switchEl.classList.toggle('on', item.enabled);
+      persist();
+    });
+    right.appendChild(toggleWrap);
+    // If disabled, show faded
+    if(!item.enabled){ li.style.opacity=.5; }
+    // Click on card opens link only if enabled
+    li.addEventListener('click', ()=>{
+      if(item.enabled){
+        window.open(item.form_link, '_blank');
+      } else {
+        alert('Mata pelajaran ini non-aktif.');
+      }
+    });
+    li.appendChild(left); li.appendChild(right);
+    subjectsList.appendChild(li);
+  });
+}
+
+function persist(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(subjects));
+  renderSubjects();
+}
+
+// Admin logic
+let isAdmin = false;
+const adminStatus = document.getElementById('adminStatus');
+function setAdmin(flag){
+  isAdmin = flag;
+  adminStatus.textContent = flag ? 'Masuk sebagai admin' : 'Tidak masuk';
+  document.getElementById('openAdmin').textContent = flag ? 'Keluar' : 'Masuk Admin';
+  if(!flag){
+    // nothing extra
+  }
+}
+
+// Buttons
+document.getElementById('openAdmin').addEventListener('click', ()=>{
+  if(isAdmin){ setAdmin(false); return; }
+  document.getElementById('adminModal').style.display='flex';
+  document.getElementById('adminUser').value = adminCredential.username;
+  document.getElementById('adminPass').value = '';
+});
+
+document.getElementById('closeAdmin').addEventListener('click', ()=>{
+  document.getElementById('adminModal').style.display='none';
+});
+
+document.getElementById('doLogin').addEventListener('click', ()=>{
+  const u = document.getElementById('adminUser').value.trim();
+  const p = document.getElementById('adminPass').value;
+  // Simple client-side check (demo): username must match and password must equal "admin"
+  if(u === adminCredential.username && p === adminCredential.password){
+    setAdmin(true);
+    document.getElementById('adminModal').style.display='none';
+    alert('Berhasil masuk sebagai admin');
+  } else {
+    alert('Gagal masuk. Username atau password salah.');
+  }
+});
+
+// Export JSON
+document.getElementById('exportBtn').addEventListener('click', ()=>{
+  const blob = new Blob([JSON.stringify(subjects, null, 2)], {type: 'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download='subjects_export.json'; document.body.appendChild(a); a.click();
+  a.remove(); URL.revokeObjectURL(url);
+});
+
+// Reset to initial
+document.getElementById('resetBtn').addEventListener('click', ()=>{
+  if(!confirm('Reset data ke kondisi awal?')) return;
+  subjects = JSON.parse(JSON.stringify(initialData));
+  persist();
+});
+
+// init
+renderGrades();
+renderSubjects();
+</script>
+</body>
+</html>
