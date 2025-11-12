@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal ASESMEN AKHIR SEMESTER GANJIL SMP Negeri 18 Samarinda</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <style>
+    body { font-family: 'Poppins', sans-serif; background-color: #f0f4f8; }
+    .gradient-bg { background: linear-gradient(135deg, #0ea5e9, #2563eb); }
+    .btn-class { transition: all 0.3s ease; }
+    .btn-class:hover { transform: scale(1.05); }
+    .subject-link { transition: all 0.2s ease; }
+    .subject-link:hover { background-color: #e0f2fe; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div id="main-container" class="min-h-screen flex flex-col">
+    <header class="gradient-bg text-white p-4 shadow-lg">
+      <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
+        <div class="flex items-center mb-4 md:mb-0">
+          <img src="images/Logo Sekolah.png" alt="Logo SMP Negeri 18 Samarinda" class="h-16 mr-4" />
+          <div>
+            <h1 class="text-2xl font-bold">Portal ASESMEN AKHIR SEMESTER GANJIL</h1>
+            <h2 class="text-lg">SMP NEGERI 18 SAMARINDA</h2>
+          </div>
+        </div>
+        <div class="flex flex-col items-end">
+          <div id="current-datetime" class="text-white text-sm mb-2"></div>
+          <button id="admin-btn" class="bg-white text-blue-600 px-4 py-2 rounded-lg font-medium hover:bg-blue-50 transition">Admin</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-grow container mx-auto p-4">
+      <div id="home-page" class="py-8">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">ASESMEN AKHIR SEMESTER</h2>
+          
+        <!-- Tanggal, Hari, dan Waktu (Tengah Halaman) -->
+  		<div id="datetime-container" class="flex justify-center items-center text-center text-gray-800 text-xl font-medium mb-10 space-x-4">
+    		<span id="current-day" class="font-semibold text-blue-600"></span>
+    		<span>|</span>
+    		<span id="current-date"></span>
+    		<span>|</span>
+    		<span id="current-time" class="font-bold text-blue-700"></span>
+  		</div>
+          
+        <div class="flex flex-col md:flex-row justify-center gap-6 px-4 flex-wrap">
+          <button id="btn-kelas-7" class="btn-class bg-blue-600 text-white text-xl font-bold py-8 px-12 rounded-xl shadow-lg hover:bg-blue-700">KELAS 7</button>
+          <button id="btn-kelas-8" class="btn-class bg-blue-600 text-white text-xl font-bold py-8 px-12 rounded-xl shadow-lg hover:bg-blue-700">KELAS 8</button>
+          <button id="btn-kelas-9" class="btn-class bg-blue-600 text-white text-xl font-bold py-8 px-12 rounded-xl shadow-lg hover:bg-blue-700">KELAS 9</button>
+        </div>
+      </div>
+
+      <!-- Jadwal Kelas -->
+      <div id="kelas-7-page" class="hidden">
+        <div class="flex items-center mb-6">
+          <button id="back-from-7" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg mr-4">&larr; Kembali</button>
+          <h2 class="text-2xl font-bold text-gray-800">Jadwal AAS Kelas VII</h2>
+        </div>
+        <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+          <h3 class="text-xl font-semibold mb-4 text-blue-600" id="current-day-7"></h3>
+          <div id="today-subjects-7" class="space-y-3"></div>
+        </div>
+      </div>
+
+      <div id="kelas-8-page" class="hidden">
+        <div class="flex items-center mb-6">
+          <button id="back-from-8" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg mr-4">&larr; Kembali</button>
+          <h2 class="text-2xl font-bold text-gray-800">Jadwal AAS Kelas VIII</h2>
+        </div>
+        <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+          <h3 class="text-xl font-semibold mb-4 text-blue-600" id="current-day-8"></h3>
+          <div id="today-subjects-8" class="space-y-3"></div>
+        </div>
+      </div>
+
+      <div id="kelas-9-page" class="hidden">
+        <div class="flex items-center mb-6">
+          <button id="back-from-9" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg mr-4">&larr; Kembali</button>
+          <h2 class="text-2xl font-bold text-gray-800">Jadwal AAS Kelas IX</h2>
+        </div>
+        <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+          <h3 class="text-xl font-semibold mb-4 text-blue-600" id="current-day-9"></h3>
+          <div id="today-subjects-9" class="space-y-3"></div>
+        </div>
+      </div>
+
+      <!-- Login Admin -->
+      <div id="admin-login-page" class="hidden">
+        <div class="max-w-md mx-auto bg-white p-8 rounded-xl shadow-md">
+          <div class="flex items-center mb-6">
+            <button id="back-from-admin" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg mr-4">&larr; Kembali</button>
+            <h2 class="text-2xl font-bold text-gray-800">Login Admin</h2>
+          </div>
+          <label for="admin-password" class="block text-gray-700 font-medium mb-2">Password</label>
+          <input type="password" id="admin-password" class="w-full px-4 py-2 border rounded-lg mb-4 focus:ring-2 focus:ring-blue-500">
+          <button id="login-btn" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition">Login</button>
+          <p id="login-error" class="text-red-500 mt-2 hidden">Password salah. Silakan coba lagi.</p>
+        </div>
+      </div>
+
+      <!-- Dashboard Admin -->
+      <div id="admin-dashboard" class="hidden">
+        <div class="flex items-center mb-6">
+          <button id="logout-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg mr-4">&larr; Logout</button>
+          <h2 class="text-2xl font-bold text-gray-800">Dashboard Admin</h2>
+        </div>
+        <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+          <h3 class="text-xl font-semibold mb-4 text-blue-600">Akses Ujian</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <button id="admin-edit-7" class="bg-green-600 text-white text-lg font-bold py-4 px-6 rounded-lg shadow hover:bg-green-700 transition">Edit Kelas VII</button>
+            <button id="admin-edit-8" class="bg-green-600 text-white text-lg font-bold py-4 px-6 rounded-lg shadow hover:bg-green-700 transition">Edit Kelas VIII</button>
+            <button id="admin-edit-9" class="bg-green-600 text-white text-lg font-bold py-4 px-6 rounded-lg shadow hover:bg-green-700 transition">Edit Kelas IX</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit Jadwal -->
+      <div id="admin-edit-page" class="hidden">
+        <div class="flex items-center mb-6">
+          <button id="back-from-edit" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg mr-4">&larr; Dashboard</button>
+          <h2 class="text-2xl font-bold text-gray-800" id="edit-title">Edit Jadwal</h2>
+        </div>
+        <div id="schedule-list" class="bg-white rounded-xl shadow-md p-6 mb-6"></div>
+        <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+          <h3 class="text-lg font-semibold mb-2 text-blue-600">Tambah Mata Pelajaran Baru</h3>
+          <form id="edit-form" class="space-y-4">
+            <select id="edit-day" class="w-full border rounded-lg p-2">
+              <option value="senin">Senin</option>
+              <option value="selasa">Selasa</option>
+              <option value="rabu">Rabu</option>
+              <option value="kamis">Kamis</option>
+              <option value="jumat">Jumat</option>
+            </select>
+            <input id="edit-subject" type="text" class="w-full border rounded-lg p-2" placeholder="Mata Pelajaran">
+            <input id="edit-link" type="url" class="w-full border rounded-lg p-2" placeholder="Tautan Ujian (https://...)">
+            <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition">Tambah</button>
+          </form>
+          <p id="edit-status" class="text-green-600 mt-4 hidden">✅ Jadwal berhasil diperbarui!</p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white p-4 mt-auto text-center">
+      &copy; 2025 SMPN 18 Samarinda
+    </footer>
+  </div>
+
+  <script>
+    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwtu5dmYPKP7Z6kvWaHwQZk2cOYwzXR5hg0y0ZcXamqw90eNHoOVL1ktsDZwL9omoTW_Q/exec";
+    const scheduleData = JSON.parse(localStorage.getItem("scheduleData")) || {"7":{},"8":{},"9":{}};
+
+    // Fungsi ambil data terbaru dari sheet
+    async function loadScheduleFromSheet(){
+      try{
+        const res = await fetch(GOOGLE_SHEET_URL);
+        const data = await res.json();
+        const newData = {"7":{},"8":{},"9":{}};
+
+        data.forEach(row => {
+          const grade = row.kelas.replace("Kelas ","").trim();
+          const day = row.hari.toLowerCase();
+          if(!newData[grade][day]) newData[grade][day] = [];
+          newData[grade][day].push({ name: row.mapel, link: row.link });
+        });
+
+        localStorage.setItem("scheduleData", JSON.stringify(newData));
+        Object.assign(scheduleData, newData);
+        console.log("✅ Jadwal dimuat dari Google Sheets");
+      } catch(err) {
+        console.error("❌ Gagal memuat jadwal:", err);
+      }
+    }
+
+    // Kirim data ke Sheet
+    function syncToGoogleSheets(){
+      fetch(GOOGLE_SHEET_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(scheduleData)
+      }).then(() => console.log("✅ Data dikirim ke Google Sheets"))
+      .catch(err => console.error("❌ Gagal kirim ke Sheets:", err));
+    }
+
+    // Fungsi tampilkan jadwal hari ini
+    function populateSubjects(grade){
+      const hariList=["minggu","senin","selasa","rabu","kamis","jumat","sabtu"];
+      const today=hariList[new Date().getDay()];
+      document.getElementById(`current-day-${grade}`).textContent=`Hari ${today.charAt(0).toUpperCase()+today.slice(1)}`;
+      const container=document.getElementById(`today-subjects-${grade}`);
+      container.innerHTML="";
+      if(scheduleData[grade][today]){
+        scheduleData[grade][today].forEach(s=>{
+          const a=document.createElement("a");
+          a.href=s.link; a.target="_blank";
+          a.className="block border p-3 rounded-lg subject-link";
+          a.textContent=s.name;
+          container.appendChild(a);
+        });
+      } else {
+        container.innerHTML="<p class='text-gray-600'>Tidak ada ujian hari ini.</p>";
+      }
+    }
+
+    // Navigasi halaman
+    const pages=["home-page","kelas-7-page","kelas-8-page","kelas-9-page","admin-login-page","admin-dashboard","admin-edit-page"];
+    function showPage(id){pages.forEach(p=>document.getElementById(p).classList.add("hidden"));document.getElementById(id).classList.remove("hidden");}
+
+    // Tombol siswa
+    document.getElementById("btn-kelas-7").onclick=()=>{showPage("kelas-7-page");populateSubjects(7);};
+    document.getElementById("btn-kelas-8").onclick=()=>{showPage("kelas-8-page");populateSubjects(8);};
+    document.getElementById("btn-kelas-9").onclick=()=>{showPage("kelas-9-page");populateSubjects(9);};
+    ["back-from-7","back-from-8","back-from-9"].forEach(id=>document.getElementById(id).onclick=()=>showPage("home-page"));
+
+    // Admin login
+    document.getElementById("admin-btn").onclick=()=>showPage("admin-login-page");
+    document.getElementById("back-from-admin").onclick=()=>showPage("home-page");
+    document.getElementById("login-btn").onclick=()=>{
+      const pass=document.getElementById("admin-password").value;
+      if(pass==="admin123"){document.getElementById("login-error").classList.add("hidden");showPage("admin-dashboard");}
+      else document.getElementById("login-error").classList.remove("hidden");
+    };
+    document.getElementById("logout-btn").onclick=()=>showPage("home-page");
+
+    // Admin edit
+    let currentEditGrade=null;
+    ["admin-edit-7","admin-edit-8","admin-edit-9"].forEach((id,i)=>{
+      document.getElementById(id).onclick=()=>{currentEditGrade=i+7;renderScheduleList();showPage("admin-edit-page");document.getElementById("edit-title").textContent=`Edit Jadwal Kelas ${i+7}`;}
+    });
+    document.getElementById("back-from-edit").onclick=()=>showPage("admin-dashboard");
+
+    function saveSchedule(){
+      localStorage.setItem("scheduleData",JSON.stringify(scheduleData));
+      syncToGoogleSheets();
+      setTimeout(loadScheduleFromSheet, 3000);
+    }
+
+    function renderScheduleList(){
+      const list=document.getElementById("schedule-list");
+      list.innerHTML="";
+      for(const day in scheduleData[currentEditGrade]){
+        const h=document.createElement("h3");
+        h.className="font-semibold text-blue-600 mt-4 mb-2";
+        h.textContent=day.charAt(0).toUpperCase()+day.slice(1);
+        list.appendChild(h);
+        scheduleData[currentEditGrade][day].forEach((s,index)=>{
+          const div=document.createElement("div");
+          div.className="flex justify-between items-center border p-3 rounded-lg mb-2";
+          div.innerHTML=`<div><div class='font-medium'>${s.name}</div><div class='text-sm text-gray-500'>${s.link}</div></div>
+          <div class='flex gap-2'>
+            <button class='bg-yellow-500 text-white px-3 py-1 rounded edit-btn' data-day='${day}' data-index='${index}'>Edit</button>
+            <button class='bg-red-600 text-white px-3 py-1 rounded delete-btn' data-day='${day}' data-index='${index}'>Hapus</button>
+          </div>`;
+          list.appendChild(div);
+        });
+      }
+
+      list.querySelectorAll(".edit-btn").forEach(btn=>{
+        btn.onclick=()=>{
+          const day=btn.dataset.day;
+          const idx=btn.dataset.index;
+          const s=scheduleData[currentEditGrade][day][idx];
+          const newName=prompt("Ubah nama mata pelajaran:",s.name);
+          const newLink=prompt("Ubah tautan ujian:",s.link);
+          if(newName && newLink){s.name=newName;s.link=newLink;saveSchedule();renderScheduleList();}
+        };
+      });
+
+      list.querySelectorAll(".delete-btn").forEach(btn=>{
+        btn.onclick=()=>{
+          const day=btn.dataset.day;
+          const idx=btn.dataset.index;
+          if(confirm("Hapus mata pelajaran ini?")){
+            scheduleData[currentEditGrade][day].splice(idx,1);
+            if(scheduleData[currentEditGrade][day].length===0) delete scheduleData[currentEditGrade][day];
+            saveSchedule();renderScheduleList();
+          }
+        };
+      });
+    }
+
+    document.getElementById("edit-form").addEventListener("submit",e=>{
+      e.preventDefault();
+      const day=document.getElementById("edit-day").value;
+      const subj=document.getElementById("edit-subject").value.trim();
+      const link=document.getElementById("edit-link").value.trim();
+      if(!subj||!link){alert("Isi semua kolom terlebih dahulu!");return;}
+      if(!scheduleData[currentEditGrade][day]) scheduleData[currentEditGrade][day]=[];
+      scheduleData[currentEditGrade][day].push({name:subj,link});
+      saveSchedule();e.target.reset();renderScheduleList();
+      document.getElementById("edit-status").classList.remove("hidden");
+      setTimeout(()=>document.getElementById("edit-status").classList.add("hidden"),1500);
+    });
+
+    // Jalankan sinkronisasi otomatis
+    window.addEventListener("load",()=>{
+      loadScheduleFromSheet();
+      setInterval(loadScheduleFromSheet,120000);
+    });
+    
+    // Tampilkan waktu, tanggal, dan hari di tengah halaman
+	function updateDateTime() {
+  		const now = new Date();
+
+  		const optionsDate = { year: 'numeric', month: 'long', day: 'numeric' };
+  		const optionsDay = { weekday: 'long' };
+
+  		const formattedDate = now.toLocaleDateString('id-ID', optionsDate);
+  		const formattedDay = now.toLocaleDateString('id-ID', optionsDay);
+  		const formattedTime = now.toLocaleTimeString('id-ID', {
+    		hour: '2-digit',
+    		minute: '2-digit',
+    		second: '2-digit'
+  		});
+
+  		// Isi ke elemen HTML
+  		document.getElementById('current-day').textContent =
+    		formattedDay.charAt(0).toUpperCase() + formattedDay.slice(1);
+  		document.getElementById('current-date').textContent = formattedDate;
+  		document.getElementById('current-time').textContent = formattedTime;
+	}
+
+	// Jalankan setiap detik
+	setInterval(updateDateTime, 1000);
+	updateDateTime();
+    
+  </script>
+</body>
+</html>
